@@ -6,17 +6,16 @@ class Trade_sell extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			offset: 0,
 			list: []
 		};
-		this.infiniteScroll = this.infiniteScroll.bind(this);
+		this.getData();
 	}
 
 	getData() {
 		// console.log(this.props.match.params);
 		fetch(
 			`https://api.nexon.co.kr/fifaonline4/v1.0/users/${this.props.match.params
-				.useraccid}/markets?tradetype=sell&offset=${this.state.offset}&limit=20`,
+				.useraccid}/markets?tradetype=sell&offset=$0&limit=100`,
 			{
 				method: 'GET',
 				headers: {
@@ -57,31 +56,27 @@ class Trade_sell extends Component {
 							})
 						});
 					}
-					console.log(this.state.list);
 				}.bind(this)
 			);
 	}
 
-	infiniteScroll() {
-		let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
-		let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
-		let clientHeight = document.documentElement.clientHeight;
+	// infiniteScroll() {
+	// 	let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+	// 	let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
+	// 	let clientHeight = document.documentElement.clientHeight;
 
-		if (scrollTop + clientHeight === scrollHeight) {
-			this.setState({
-				offset: this.state.offset + 1
-			});
-			console.log(this.state.offset);
-			this.getData();
-		}
-		// } else {
-		// 	event.stopImmediatePropagation();
-		// }
-	}
-	componentDidMount() {
-		this.getData();
-		window.addEventListener('scroll', this.infiniteScroll);
-	}
+	// 	if (scrollTop + clientHeight === scrollHeight) {
+	// 		this.setState({
+	// 			offset: this.state.offset + 1
+	// 		});
+	// 		console.log(this.state.offset);
+	// 		this.getData();
+	// 	}
+	// 	// } else {
+	// 	// 	event.stopImmediatePropagation();
+	// 	// }
+	// }
+
 	// componentWillUnmount() {
 	// 	window.removeEventListener('scroll', this.infiniteScroll);
 	// }
