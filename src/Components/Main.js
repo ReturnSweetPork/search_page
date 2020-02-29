@@ -29,6 +29,7 @@ class Main extends Component {
       .then(response => response.json())
       .then(responseData => {
         this.setState({ usercidx: responseData.accessId });
+        window.sessionStorage.setItem("usercidx", this.state.usercidx);
         this.props.history.push(`/search/${this.state.usercidx}`);
         console.log(this.state);
       })
